@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean id="operation" class="com.care.quiz.OperationClass"/>
+	<bean id="print" class="com.care.quiz.PrintClass"/>
+	
+	<bean id="save" class="com.care.quiz.SaveClass">
+		<property name="pc" ref="print" />
+		<property name="oc" ref="operation"/>
+		<property name="num1">
+			<value>3</value>
+		</property>
+		<property name="num2">
+			<value>5</value>
+		</property>
+		<property name="op" value="-" />
+	</bean>
+</beans>
