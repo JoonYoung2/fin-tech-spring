@@ -10,11 +10,11 @@ public class MemberService {
 	private MemberDAO ddd;
 	
 	public MemberService() {
-		System.out.println("MemberService()서준영 바보");
+		System.out.println("MemberService()");
 	}
 	
 	public void test() {
-		System.out.println("service test연동 서준영 바보");
+		System.out.println("service test연동");
 		ddd.test();
 	}
 }
