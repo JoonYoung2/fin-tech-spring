@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.care.root.member.dto.MemberDTO;
 import com.care.root.mybatis.member.MemberMapper;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 @Service
 public class MemberServiceImpl implements MemberService {
 	
@@ -18,6 +20,12 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	private HttpSession session;
+	
+	BCryptPasswordEncoder encoder;
+	
+	public MemberServiceImpl() {
+		encoder = new BCryptPasswordEncoder();
+	}
 	
 	public List<MemberDTO> getMemberList() {
 		return mapper.getMemberList();
@@ -29,8 +37,9 @@ public class MemberServiceImpl implements MemberService {
 		if(check == null) {
 			return "없는 아이디입니다.";
 		}
+		
 		if(check.getId().equals(dto.getId())) {
-			if(check.getPw().equals(dto.getPw())) {
+			if(encoder.matches(dto.getPw(), check.getPw())) {
 				session.setAttribute("user_id", dto.getId());
 				msg = "성공";
 			}else {
@@ -45,8 +54,11 @@ public class MemberServiceImpl implements MemberService {
 	public String register(MemberDTO dto) {
 		String msg = "";
 		int result = 0;
+		String pw = dto.getPw();
+		pw = encoder.encode(pw);
+		dto.setPw(pw);
 		try {
-			result = mapper.register(dto);			
+			result = mapper.register(dto);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

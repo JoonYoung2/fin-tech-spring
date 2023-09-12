@@ -2,6 +2,7 @@ package com.care.root.member.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,15 @@ public class MemberController {
 	}
 	
 	@PostMapping("/register.do")
-	public String register(MemberDTO dto, Model model) {
+	public String register(HttpServletRequest req, MemberDTO dto, Model model) {
+		String[] addr = req.getParameterValues("addr");
+		String addr2 = "";
+		for(String ad : addr) {
+			addr2 += ad + "/";
+		}
+
+		dto.setAddr(addr2);
+		
 		String msg = service.register(dto);
 		
 		if(!msg.equals("¼º°ø")) {
