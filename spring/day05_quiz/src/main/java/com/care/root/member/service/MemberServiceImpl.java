@@ -1,6 +1,8 @@
 package com.care.root.member.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -73,6 +75,18 @@ public class MemberServiceImpl implements MemberService {
 	public MemberDTO getMemberInfo(String id) {
 		
 		return mapper.getUserById(id);
+	}
+
+	public void keepLogin(String session_id, String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("session_id", session_id);
+		map.put("id", id);
+		mapper.keepLogin(map);
+	}
+
+	public MemberDTO getUserSessionId(String session_id) {
+		
+		return mapper.getUserSessionId(session_id);
 	}
 	
 }

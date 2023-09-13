@@ -17,8 +17,9 @@
 			<input type="text" name="id"><br>
 			<input type="text" name="pw"><br>
 			<button>로그인</button>
+			<a href="register">회원가입</a><br>
+			<input type="checkbox" name="autoLogin">자동 로그인
 		</form>
-		<a href="register">회원가입</a>
 	</div>
 </body>
 </html>

@@ -13,5 +13,8 @@ public interface MemberService {
 	String register(MemberDTO dto);
 
 	MemberDTO getMemberInfo(String id);
+	
+	public void keepLogin(String session_id, String id);
 
+	MemberDTO getUserSessionId(String value);
 }

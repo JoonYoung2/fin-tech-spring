@@ -14,4 +14,12 @@
 	<insert id="register" parameterType="com.care.root.member.dto.MemberDTO">
 		insert into membership values(#{id}, #{pw}, #{addr})
 	</insert>
+	
+	<update id="keepLogin">
+		update membership set session_id=#{session_id} where id=#{id}
+	</update>
+	
+	<select id="getUserSessionId" parameterType="com.care.root.member.dto.MemberDTO">
+		select * from membership where session_id=#{session_id}
+	</select>
 </mapper>

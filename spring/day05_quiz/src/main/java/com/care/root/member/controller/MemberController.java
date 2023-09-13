@@ -2,12 +2,15 @@ package com.care.root.member.controller;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,7 +34,7 @@ public class MemberController {
 	public String info(Model model) {
 		List<MemberDTO> dto = service.getMemberList();
 		model.addAttribute("member", dto);
-		return "member/info";
+		return "member/list";
 	}
 	
 	@GetMapping("/login")
@@ -40,11 +43,23 @@ public class MemberController {
 	}
 	
 	@PostMapping("/login.do")
-	public String login(MemberDTO dto, Model model) {
+	public String login(MemberDTO dto, @RequestParam(required = false, defaultValue="off") String autoLogin, HttpSession session, HttpServletResponse res, Model model) {
+		System.out.println(autoLogin);
 		String msg = service.loginCheck(dto);
 		if(!msg.equals("¼º°ø")) {
 			model.addAttribute("msg", msg);
+			model.addAttribute("autoLogin", autoLogin);
 			return "member/login";
+		}
+		
+		if(autoLogin.equals("on")) {
+			int limitTime=60*60*24*90;
+			Cookie loginCookie = new Cookie("loginCookie", session.getId());
+			loginCookie.setPath("/");
+			loginCookie.setMaxAge(limitTime);
+			res.addCookie(loginCookie);
+			
+			service.keepLogin(session.getId(), dto.getId());
 		}
 		return "member/successLogin";
 	}
@@ -81,7 +96,12 @@ public class MemberController {
 	}
 	
 	@GetMapping("logout")
-	public String logout() {
+	public String logout(@CookieValue(value="loginCookie", required = false) Cookie cookie, HttpServletResponse res) {
+		if(cookie != null) {
+			cookie.setMaxAge(0);
+			res.addCookie(cookie);
+			service.keepLogin("nan", (String)session.getAttribute("user_id"));
+		}
 		session.invalidate();
 		return "redirect:/";
 	}
