@@ -28,9 +28,9 @@
 			<c:if test="${ not empty list }">
 				<c:forEach var="board" items="${ list }">
 					<tr>
-						<td>${ board.writeOn }</td>
+						<td>${ board.writeNo }</td>
 						<td>${ board.id }</td>
-						<td>${ board.title }</td>
+						<td><a href="contentView?writeNo=${board.writeNo }">${ board.title }</a></td>
 						<td>${ board.saveDate }</td>
 						<td>${ board.hit }</td>
 						<td>${ board.imageFileName }</td>
@@ -39,7 +39,16 @@
 			</c:if>
 			<tr>
 				<td colspan="6">
-					<div align="right"><a href="writeForm">글작성</a></div>
+					<div style="display:flex;">
+						<div align="left">
+							<c:forEach var="i" begin="${ start }" end="${ end }" step="1">
+								<a href="boardList/${ i }">[${ i }]</a> 
+							</c:forEach>
+						</div>
+						<div align="right">
+							<a href="writeForm">글작성</a>
+						</div>
+					</div>
 				</td>
 			</tr>
 		</table>

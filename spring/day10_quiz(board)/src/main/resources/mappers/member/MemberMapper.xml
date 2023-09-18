@@ -12,7 +12,7 @@
 	</select>
 	
 	<insert id="register" parameterType="com.care.root.member.dto.MemberDTO">
-		insert into membership values(#{id}, #{pw}, #{addr})
+		insert into membership(id, pw, addr) values(#{id}, #{pw}, #{addr})
 	</insert>
 	
 	<update id="keepLogin">

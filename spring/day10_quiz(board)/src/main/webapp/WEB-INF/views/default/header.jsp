@@ -13,7 +13,7 @@
 <br><br>
 <hr>
 	<div align="right">
-		<a href="/root">HOME</a> <a href="info">회원정보</a> <a href="boardList">게시판</a>
+		<a href="/root">HOME</a> <a href="info">회원정보</a> <a href="boardList/0">게시판</a>
 		<c:if test="${empty sessionScope.user_id }">
 			<a href="login">LOGIN</a>
 		</c:if>

@@ -9,7 +9,7 @@ import com.care.root.dto.getParamDTO;
 
 public interface FileService {
 	
-	public String IMAGE_REPO = "C:\\spring\\image_repo";
+	public String IMAGE_REPO = "D:\\fin_tech_spring\\spring_file_upload\\image_repo";
 	public void fileProcess(String id, String name, MultipartFile file);
 	public List<FileDTO> getData();
 	public void delete(String file, String id);
