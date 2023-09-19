@@ -59,7 +59,7 @@
 						<button type="button" onclick="boardDelete('${dto.writeNo}')">삭제하기</button>
 					</c:if>
 					<button type="button" onclick="reply()">답글달기</button>
-					<a href="boardList/0"><button type="button">리스트로 돌아가기</button></a>
+					<a href="boardList"><button type="button">리스트로 돌아가기</button></a>
 				</td>
 			</tr>
 			<c:forEach var="list" items="${ rep }">

@@ -30,7 +30,7 @@
 					<tr>
 						<td>${ board.writeNo }</td>
 						<td>${ board.id }</td>
-						<td><a href="/root/contentView?writeNo=${board.writeNo }">${ board.title }</a></td>
+						<td><a href="contentView?writeNo=${board.writeNo }">${ board.title }</a></td>
 						<td>${ board.saveDate }</td>
 						<td>${ board.hit }</td>
 						<td>${ board.imageFileName }</td>

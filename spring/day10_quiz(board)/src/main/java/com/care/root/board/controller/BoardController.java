@@ -43,7 +43,7 @@ public class BoardController {
 	@PostMapping("boardWrite.do")
 	public String boardWrite(BoardDTO dto, Model model) {	
 		service.boardInsert(dto);
-		return "redirect:boardList";
+		return "redirect:boardList/0";
 	}
 	
 	@GetMapping("contentView")
