@@ -163,7 +163,7 @@
       
       
       
-      <Context docBase="day11(day10_answer)" path="/root" reloadable="true" source="org.eclipse.jst.jee.server:day11(day10_answer)"/></Host>
+      <Context docBase="test_cycle" path="/abc" reloadable="true" source="org.eclipse.jst.jee.server:test_cycle"/></Host>
     </Engine>
   </Service>
 </Server>
