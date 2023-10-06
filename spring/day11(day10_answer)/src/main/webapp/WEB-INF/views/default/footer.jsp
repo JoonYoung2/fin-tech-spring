@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<hr>
+	<footer>capyright &copy; all rights reserved....불라불라</footer>
 </body>
 </html>

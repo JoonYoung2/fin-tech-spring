@@ -4,7 +4,8 @@ public class MemberDTO {
 	private String id;
 	private String pw;
 	private String addr;
-	private String session_id;
+	private String sessionId;
+	
 	public String getId() {
 		return id;
 	}
@@ -20,13 +21,14 @@ public class MemberDTO {
 	public String getAddr() {
 		return addr;
 	}
-	public void setAddr(String address) {
-		this.addr = address;
+	public void setAddr(String addr) {
+		this.addr = addr;
 	}
-	public String getSession_id() {
-		return session_id;
+	public String getSessionId() {
+		return sessionId;
 	}
-	public void setSession_id(String session_id) {
-		this.session_id = session_id;
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
 	}
+	
 }

@@ -1,18 +1,17 @@
 package com.care.root.board.dto;
 
 import java.sql.Timestamp;
-
-import org.springframework.web.multipart.MultipartFile;
+import java.text.SimpleDateFormat;
 
 public class BoardDTO {
-	private String id;
+	private int writeNo;
 	private String title;
 	private String content;
-	private MultipartFile file;
-	private int writeNo;
-	private Timestamp saveDate;
+	private String saveDate;
 	private int hit;
 	private String imageFileName;
+	private String id;
+	
 	public int getWriteNo() {
 		return writeNo;
 	}
@@ -31,11 +30,12 @@ public class BoardDTO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Timestamp getSaveDate() {
+	public String getSaveDate() {
 		return saveDate;
 	}
 	public void setSaveDate(Timestamp saveDate) {
-		this.saveDate = saveDate;
+		SimpleDateFormat fo = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+		this.saveDate = fo.format(saveDate);
 	}
 	public int getHit() {
 		return hit;
@@ -55,10 +55,6 @@ public class BoardDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public MultipartFile getFile() {
-		return file;
-	}
-	public void setFile(MultipartFile file) {
-		this.file = file;
-	}
+	
+	
 }

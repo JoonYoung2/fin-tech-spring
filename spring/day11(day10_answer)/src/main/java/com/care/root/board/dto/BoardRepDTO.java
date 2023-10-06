@@ -1,13 +1,12 @@
 package com.care.root.board.dto;
 
 import java.sql.Timestamp;
-
 public class BoardRepDTO {
-	private String id;
-	private String title;
-	private String content;
-	private int write_group;
-	private Timestamp write_date;
+    private String id;
+    private String title;
+    private String content;
+    private int write_group;
+    private Timestamp write_date;
 	public String getId() {
 		return id;
 	}

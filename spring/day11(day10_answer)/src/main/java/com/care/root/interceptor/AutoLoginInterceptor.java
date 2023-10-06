@@ -8,14 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.util.WebUtils;
 
-import com.care.root.common.SessionLogin;
+import com.care.root.common.LoginSession;
 import com.care.root.member.dto.MemberDTO;
 import com.care.root.member.service.MemberService;
 
-public class AutoLoginInterceptor extends HandlerInterceptorAdapter implements SessionLogin{
-	@Autowired 
-	private MemberService ms;
-	
+public class AutoLoginInterceptor extends HandlerInterceptorAdapter implements LoginSession{
+	@Autowired MemberService ms;
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -23,6 +21,7 @@ public class AutoLoginInterceptor extends HandlerInterceptorAdapter implements S
 		if (loginCookie != null) {
 			MemberDTO dto = ms.getUserSessionId(loginCookie.getValue());
 			if(dto != null) {
+				System.out.println("dkdkdkdk");
 				request.getSession().setAttribute(LOGIN, dto.getId()); //세션 등록
 			}
 		}

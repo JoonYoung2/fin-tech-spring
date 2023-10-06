@@ -7,8 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%@ include file="../default/header.jsp" %>
-<h1>${ msg }</h1>
-<%@ include file="../default/footer.jsp" %>
+   <%@ include file="../default/header.jsp" %>
+
+
+
+   <%@ include file="../default/footer.jsp" %>
 </body>
 </html>

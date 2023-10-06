@@ -1,92 +1,107 @@
 package com.care.root.member.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.care.root.member.dto.MemberDTO;
 import com.care.root.mybatis.member.MemberMapper;
-
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 @Service
 public class MemberServiceImpl implements MemberService {
-	
-	@Autowired
-	private MemberMapper mapper;
-	
-	@Autowired
-	private HttpSession session;
-	
+	@Autowired 
+	private MemberMapper dao;
 	BCryptPasswordEncoder encoder;
-	
 	public MemberServiceImpl() {
 		encoder = new BCryptPasswordEncoder();
 	}
 	
-	public List<MemberDTO> getMemberList() {
-		return mapper.getMemberList();
-	}
+	public String loginCh(MemberDTO dto) {
+		MemberDTO db = new MemberDTO();
+		db = dao.getMemberInfo(dto.getId());
 
-	public String loginCheck(MemberDTO dto) {
-		MemberDTO check = mapper.getUserById(dto.getId());
-		String msg = "";
-		if(check == null) {
-			return "¾ø´Â ¾ÆÀÌµğÀÔ´Ï´Ù.";
+		if(db == null) {
+			return "ì•„ì´ë”” ì—†ìŒ";
 		}
 		
-		if(check.getId().equals(dto.getId())) {
-			if(encoder.matches(dto.getPw(), check.getPw())) {
-				session.setAttribute("user_id", dto.getId());
-				msg = "¼º°ø";
+		if (db.getId().equals(dto.getId())){
+			if( encoder.matches(dto.getPw(),  db.getPw()) || dto.getPw().equals(db.getPw())) {
+				return "ë¡œê·¸ì¸ì„±ê³µ";
 			}else {
-				msg = "ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.";
+				return "ë¹„ë°€ë²ˆí˜¸ë¥¼ í™•ì¸í•˜ì„¸ìš”";
 			}
 		}else {
-			msg = "¾ø´Â ¾ÆÀÌµğÀÔ´Ï´Ù.";
+			return "ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤.";
 		}
-		return msg;
 	}
 
-	public String register(MemberDTO dto) {
-		String msg = "";
-		int result = 0;
-		String pw = dto.getPw();
-		pw = encoder.encode(pw);
-		dto.setPw(pw);
+
+	public ArrayList<MemberDTO> getEveryMemberInfo() {
+		ArrayList<MemberDTO> result=dao.getEveryMemberInfo();
+		return result;
+	}
+
+
+	public MemberDTO getMemberInfo(String user_id) {
+		MemberDTO result = dao.getMemberInfo(user_id);
+		return result;
+	}
+	@Override
+	public void register(MemberDTO dto, String[] addr) {
+		String ad = "";
+		for(String a : addr) {
+			ad += a +"/";
+		}
+		dto.setAddr(ad);
+		System.out.println("í‰ë¬¸ : "+dto.getPw());
+		System.out.println("ì•”í˜¸í™” : "+encoder.encode(dto.getPw()));
+		
+		dto.setPw( encoder.encode(dto.getPw()));
 		try {
-			result = mapper.register(dto);
+			dao.register(dto);			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		if(result == 1) {
-			msg = "¼º°ø";
-		}else {
-			msg = "½ÇÆĞ";
-		}
-		return msg;
 	}
 
-	public MemberDTO getMemberInfo(String id) {
-		
-		return mapper.getUserById(id);
-	}
-
-	public void keepLogin(String session_id, String id) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("session_id", session_id);
+	public void keepLogin(String sessionId, String id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("sessionId", sessionId);
 		map.put("id", id);
-		mapper.keepLogin(map);
+		dao.keepLogin(map);
 	}
 
-	public MemberDTO getUserSessionId(String session_id) {
-		
-		return mapper.getUserSessionId(session_id);
+	@Override
+	public MemberDTO getUserSessionId(String sessionId) {
+		return dao.getUserSessionId(sessionId);
 	}
+
+
+//	public String register(String[]addr, MemberDTO dto) {
+//		
+//		if(dto.getId().equals("")) {
+//			return "ì•„ì´ë””ë¥¼ ì…ë ¥í•˜ì„¸ìš”";
+//		}else if(dto.getPw().equals("")) {
+//			return "ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”";
+//		}else if(dto.getAddr().equals("")) {
+//			return "ì£¼ì†Œë¥¼ ì…ë ¥í•˜ì„¸ìš”";
+//		}
+//		MemberDTO db = new MemberDTO();
+//		db = dao.getMemberInfo(dto.getId());
+//
+//		if(db != null) {
+//			return "
+//			dao.register(dto);
+//		}
+	//return null;
+
+
+
+	//}
 	
 }

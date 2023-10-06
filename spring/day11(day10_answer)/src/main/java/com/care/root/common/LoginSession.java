@@ -1,5 +1,5 @@
 package com.care.root.common;
 
-public interface SessionLogin {
+public interface LoginSession {
 	public String LOGIN = "user_id";
 }

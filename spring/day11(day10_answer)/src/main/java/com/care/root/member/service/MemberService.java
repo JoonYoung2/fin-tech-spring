@@ -1,20 +1,27 @@
 package com.care.root.member.service;
 
-import java.util.List;
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
 
 import com.care.root.member.dto.MemberDTO;
 
 public interface MemberService {
 
-	List<MemberDTO> getMemberList();
+	public String loginCh(MemberDTO dto);
 
-	String loginCheck(MemberDTO dto);
+	public ArrayList<MemberDTO> getEveryMemberInfo();
 
-	String register(MemberDTO dto);
+	public MemberDTO getMemberInfo(String user_id);
 
-	MemberDTO getMemberInfo(String id);
+	public void register(MemberDTO dto, String[] addr);
 	
-	public void keepLogin(String session_id, String id);
+	public void keepLogin(String sessionId, String id);
 
-	MemberDTO getUserSessionId(String value);
+	public MemberDTO getUserSessionId(String value);
+
+	//public void register( MemberDTO dto);
+
+	
+
 }

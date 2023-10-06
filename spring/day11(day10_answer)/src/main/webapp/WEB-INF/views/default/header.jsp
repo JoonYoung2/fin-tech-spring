@@ -3,25 +3,26 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
-<head> 
+<head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head> 
+</head>
 <body>
-<br><br>
-	<div align="center">CARE LAB</div>
-<br><br>
-<hr>
-	<div align="right">
-		<a href="/root">HOME</a> <a href="info">회원정보</a> 
-		<a href="/root/board/boardAllList">게시판</a>
-		<c:if test="${empty sessionScope.user_id }">
-			<a href="login">LOGIN</a>
-		</c:if>
-		<c:if test="${not empty sessionScope.user_id }">
-			<a href="logout">LOGOUT</a>
-		</c:if>
-	</div>
-<hr>
+	<header>
+	<a href="index"><h2>CARE LAB</h2></a>
+	<hr>
+	<a href="index">HOME</a>
+	<a href="board">BOARD</a>
+	<c:if test="${ empty sessionScope.user_id }">
+		<a href="login">LOGIN</a>
+		<a href="login">MEMBER INFO</a>
+	</c:if>
+	<c:if test="${ not empty sessionScope.user_id }">
+		<a href="logout">LOGOUT</a>
+		<a href="memberInfo">MEMBER INFO</a>
+	
+	</c:if>
+	<hr>
+	</header>
 </body>
 </html>
